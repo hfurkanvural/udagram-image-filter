@@ -28,15 +28,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
-
-  //! END @TODO1
-  
-  // Root Endpoint
-  // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
-    res.send("try GET /filteredimage?image_url={{}}")
-  } );
-  
   app.get("/filteredimage", async (req: any, res: any) => {
     const image_url: string = req.query.image_url;
     if (!image_url)
@@ -44,7 +35,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         error: 'No image url is found!'
       });
     try {
-      let filteredImagePath = await filterImageFromURL(image_url);
+      let filteredImagePath: string = await filterImageFromURL(image_url);
       if(!filteredImagePath)
         return res.status(422).send({
           error: 'Error! Image path couldnt found!'
@@ -64,6 +55,15 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
     
   })
+  //! END @TODO1
+  
+  // Root Endpoint
+  // Displays a simple message to the user
+  app.get( "/", async ( req, res ) => {
+    res.send("try GET /filteredimage?image_url={{}}")
+  } );
+  
+
 
   // Start the Server
   app.listen( port, () => {
